@@ -17,7 +17,7 @@ function onSubmit(e) {
 
 function counterPromise(firstDelay, step, amount) {
   for (let i = 0; i < amount; i += 1) {
-    delay = firstDelay + i * step;
+    let delay = firstDelay + i * step;
     createPromise(i, delay).then(onFulfill).catch(onReject);
   }
 }
