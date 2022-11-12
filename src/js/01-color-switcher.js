@@ -1,7 +1,6 @@
 const refs = {
   startBtn: document.querySelector('button[data-start]'),
   stopBtn: document.querySelector('button[data-stop]'),
-  body: document.querySelector('body'),
 };
 let timerId = null;
 refs.stopBtn.disabled = true;
@@ -12,7 +11,7 @@ function getRandomHexColor() {
 }
 function assignBodyColor() {
   const color = getRandomHexColor();
-  refs.body.style.backgroundColor = color;
+  document.body.style.backgroundColor = color;
 }
 function changeBodyColor(e) {
   if (e.target === refs.startBtn) {

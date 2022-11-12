@@ -1,13 +1,13 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
-import Notiflix from 'notiflix';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 const refs = {
   startBtn: document.querySelector('button[data-start]'),
   inputDate: document.querySelector('#datetime-picker'),
-  days: document.querySelector('[data-days]'),
-  hours: document.querySelector('[data-hours]'),
-  minutes: document.querySelector('[data-minutes]'),
-  seconds: document.querySelector('[data-seconds]'),
+  days: document.querySelector('span[data-days]'),
+  hours: document.querySelector('span[data-hours]'),
+  minutes: document.querySelector('span[data-minutes]'),
+  seconds: document.querySelector('span[data-seconds]'),
 };
 let intervalId = null;
 const options = {
@@ -18,7 +18,7 @@ const options = {
   onClose(selectedDates) {
     if (selectedDates[0] < options.defaultDate) {
       refs.startBtn.disabled = true;
-      Notiflix.Notify.failure('Please choose a date in the future');
+      Report.failure('Please choose a date in the future', '', 'close');
       return;
     }
     if (!refs.startBtn.disabled) {
@@ -28,7 +28,9 @@ const options = {
     const deltaTime = selectedDates[0] - options.defaultDate;
     refs.startBtn.disabled = false;
     refs.startBtn.onclick = function () {
+      clearInterval(intervalId);
       timer(deltaTime);
+      refs.startBtn.disabled = true;
     };
   },
 };
